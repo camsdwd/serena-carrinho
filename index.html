@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carrinho Serena</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 400px; margin: auto; }
+    input { width: 50px; }
+    button { padding: 10px 15px; background: #5a8f7b; color: white; border: none; cursor: pointer; margin-top: 20px;}
+    button:hover { background: #49735d; }
+  </style>
+</head>
+<body>
+  <h2>🛍️ Carrinho de Compras – Serena</h2>
+
+  <p>Sabonete de Lavanda – R$15: <input type="number" id="lavanda" value="0" min="0"></p>
+  <p>Sabonete de Argila Rosa – R$18: <input type="number" id="argila" value="0" min="0"></p>
+  <p>Sabonete de Carvão Ativado – R$17: <input type="number" id="carvao" value="0" min="0"></p>
+
+  <p><strong>Total: R$<span id="total">0</span></strong></p>
+
+  <button onclick="enviarWhatsApp()">Finalizar Pedido no WhatsApp</button>
+
+  <script>
+    const lavanda = document.getElementById('lavanda');
+    const argila = document.getElementById('argila');
+    const carvao = document.getElementById('carvao');
+    const totalEl = document.getElementById('total');
+
+    function calcularTotal() {
+      const total =
+        (lavanda.value * 15) +
+        (argila.value * 18) +
+        (carvao.value * 17);
+      totalEl.textContent = total;
+    }
+
+    lavanda.oninput = calcularTotal;
+    argila.oninput = calcularTotal;
+    carvao.oninput = calcularTotal;
+
+    function enviarWhatsApp() {
+      const msg = `Olá! Gostaria de comprar:
+      - Lavanda: ${lavanda.value}
+      - Argila Rosa: ${argila.value}
+      - Carvão: ${carvao.value}
+      Total: R$${totalEl.textContent}`;
+
+      // Troque o 5511999999999 pelo seu número completo com DDD e país
+      const link = `https://wa.me/5511999999999?text=${encodeURIComponent(msg)}`;
+      window.open(link, '_blank');
+    }
+  </script>
+</body>
+</html>
